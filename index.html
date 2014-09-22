@@ -1,0 +1,397 @@
+<!doctype html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=description content=""><link href="http://fonts.googleapis.com/css?family=Share:400,700" rel=stylesheet type=text/css><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui"><title></title><meta name=mobile-web-app-capable content=yes><link rel=icon type=image/png href=/favicon-196x196.png sizes=196x196><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><link rel=icon type=image/png href=/favicon-16x16.png sizes=16x16><link rel=icon type=image/png href=/favicon-32x32.png sizes=32x32><meta name=msapplication-TileColor content=#00a300><meta name=msapplication-TileImage content=/mstile-144x144.png><meta name=format-detection content="telephone=no"><script>/*! pace 0.5.7 */
+      (function() {
+        var a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W = [].slice,
+          X = {}.hasOwnProperty,
+          Y = function(a, b) {
+            function c() {
+              this.constructor = a
+            }
+            for (var d in b) X.call(b, d) && (a[d] = b[d]);
+            return c.prototype = b.prototype, a.prototype = new c, a.__super__ = b.prototype, a
+          }, Z = [].indexOf || function(a) {
+            for (var b = 0, c = this.length; c > b; b++)
+              if (b in this && this[b] === a) return b;
+            return -1
+          };
+        for (t = {
+          catchupTime: 500,
+          initialRate: .03,
+          minTime: 500,
+          ghostTime: 500,
+          maxProgressPerFrame: 10,
+          easeFactor: 1.25,
+          startOnPageLoad: !0,
+          restartOnPushState: !0,
+          restartOnRequestAfter: 500,
+          target: "body",
+          elements: {
+            checkInterval: 100,
+            selectors: ["body"]
+          },
+          eventLag: {
+            minSamples: 10,
+            sampleCount: 3,
+            lagThreshold: 3
+          },
+          ajax: {
+            trackMethods: ["GET"],
+            trackWebSockets: !0,
+            ignoreURLs: []
+          }
+        }, B = function() {
+          var a;
+          return null != (a = "undefined" != typeof performance && null !== performance && "function" == typeof performance.now ? performance.now() : void 0) ? a : +new Date
+        }, D = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame, s = window.cancelAnimationFrame || window.mozCancelAnimationFrame, null == D && (D = function(a) {
+          return setTimeout(a, 50)
+        }, s = function(a) {
+          return clearTimeout(a)
+        }), F = function(a) {
+          var b, c;
+          return b = B(), (c = function() {
+            var d;
+            return d = B() - b, d >= 33 ? (b = B(), a(d, function() {
+              return D(c)
+            })) : setTimeout(c, 33 - d)
+          })()
+        }, E = function() {
+          var a, b, c;
+          return c = arguments[0], b = arguments[1], a = 3 <= arguments.length ? W.call(arguments, 2) : [], "function" == typeof c[b] ? c[b].apply(c, a) : c[b]
+        }, u = function() {
+          var a, b, c, d, e, f, g;
+          for (b = arguments[0], d = 2 <= arguments.length ? W.call(arguments, 1) : [], f = 0, g = d.length; g > f; f++)
+            if (c = d[f])
+              for (a in c) X.call(c, a) && (e = c[a], null != b[a] && "object" == typeof b[a] && null != e && "object" == typeof e ? u(b[a], e) : b[a] = e);
+          return b
+        }, p = function(a) {
+          var b, c, d, e, f;
+          for (c = b = 0, e = 0, f = a.length; f > e; e++) d = a[e], c += Math.abs(d), b++;
+          return c / b
+        }, w = function(a, b) {
+          var c, d, e;
+          if (null == a && (a = "options"), null == b && (b = !0), e = document.querySelector("[data-pace-" + a + "]")) {
+            if (c = e.getAttribute("data-pace-" + a), !b) return c;
+            try {
+              return JSON.parse(c)
+            } catch (f) {
+              return d = f, "undefined" != typeof console && null !== console ? console.error("Error parsing inline pace options", d) : void 0
+            }
+          }
+        }, g = function() {
+          function a() {}
+          return a.prototype.on = function(a, b, c, d) {
+            var e;
+            return null == d && (d = !1), null == this.bindings && (this.bindings = {}), null == (e = this.bindings)[a] && (e[a] = []), this.bindings[a].push({
+              handler: b,
+              ctx: c,
+              once: d
+            })
+          }, a.prototype.once = function(a, b, c) {
+            return this.on(a, b, c, !0)
+          }, a.prototype.off = function(a, b) {
+            var c, d, e;
+            if (null != (null != (d = this.bindings) ? d[a] : void 0)) {
+              if (null == b) return delete this.bindings[a];
+              for (c = 0, e = []; c < this.bindings[a].length;) e.push(this.bindings[a][c].handler === b ? this.bindings[a].splice(c, 1) : c++);
+              return e
+            }
+          }, a.prototype.trigger = function() {
+            var a, b, c, d, e, f, g, h, i;
+            if (c = arguments[0], a = 2 <= arguments.length ? W.call(arguments, 1) : [], null != (g = this.bindings) ? g[c] : void 0) {
+              for (e = 0, i = []; e < this.bindings[c].length;) h = this.bindings[c][e], d = h.handler, b = h.ctx, f = h.once, d.apply(null != b ? b : this, a), i.push(f ? this.bindings[c].splice(e, 1) : e++);
+              return i
+            }
+          }, a
+        }(), null == window.Pace && (window.Pace = {}), u(Pace, g.prototype), C = Pace.options = u({}, t, window.paceOptions, w()), T = ["ajax", "document", "eventLag", "elements"], P = 0, R = T.length; R > P; P++) J = T[P], C[J] === !0 && (C[J] = t[J]);
+        i = function(a) {
+          function b() {
+            return U = b.__super__.constructor.apply(this, arguments)
+          }
+          return Y(b, a), b
+        }(Error), b = function() {
+          function a() {
+            this.progress = 0
+          }
+          return a.prototype.getElement = function() {
+            var a;
+            if (null == this.el) {
+              if (a = document.querySelector(C.target), !a) throw new i;
+              this.el = document.createElement("div"), this.el.className = "pace pace-active", document.body.className = document.body.className.replace(/pace-done/g, ""), document.body.className += " pace-running", this.el.innerHTML = '<div class="pace-progress">\n  <div class="pace-progress-inner"></div>\n</div>\n<div class="pace-activity"></div>', null != a.firstChild ? a.insertBefore(this.el, a.firstChild) : a.appendChild(this.el)
+            }
+            return this.el
+          }, a.prototype.finish = function() {
+            var a;
+            return a = this.getElement(), a.className = a.className.replace("pace-active", ""), a.className += " pace-inactive", document.body.className = document.body.className.replace("pace-running", ""), document.body.className += " pace-done"
+          }, a.prototype.update = function(a) {
+            return this.progress = a, this.render()
+          }, a.prototype.destroy = function() {
+            try {
+              this.getElement().parentNode.removeChild(this.getElement())
+            } catch (a) {
+              i = a
+            }
+            return this.el = void 0
+          }, a.prototype.render = function() {
+            var a, b;
+            return null == document.querySelector(C.target) ? !1 : (a = this.getElement(), a.children[0].style.width = "" + this.progress + "%", (!this.lastRenderedProgress || this.lastRenderedProgress | 0 !== this.progress | 0) && (a.children[0].setAttribute("data-progress-text", "" + (0 | this.progress) + "%"), this.progress >= 100 ? b = "99" : (b = this.progress < 10 ? "0" : "", b += 0 | this.progress), a.children[0].setAttribute("data-progress", "" + b)), this.lastRenderedProgress = this.progress)
+          }, a.prototype.done = function() {
+            return this.progress >= 100
+          }, a
+        }(), h = function() {
+          function a() {
+            this.bindings = {}
+          }
+          return a.prototype.trigger = function(a, b) {
+            var c, d, e, f, g;
+            if (null != this.bindings[a]) {
+              for (f = this.bindings[a], g = [], d = 0, e = f.length; e > d; d++) c = f[d], g.push(c.call(this, b));
+              return g
+            }
+          }, a.prototype.on = function(a, b) {
+            var c;
+            return null == (c = this.bindings)[a] && (c[a] = []), this.bindings[a].push(b)
+          }, a
+        }(), O = window.XMLHttpRequest, N = window.XDomainRequest, M = window.WebSocket, v = function(a, b) {
+          var c, d, e, f;
+          f = [];
+          for (d in b.prototype) try {
+            e = b.prototype[d], f.push(null == a[d] && "function" != typeof e ? a[d] = e : void 0)
+          } catch (g) {
+            c = g
+          }
+          return f
+        }, z = [], Pace.ignore = function() {
+          var a, b, c;
+          return b = arguments[0], a = 2 <= arguments.length ? W.call(arguments, 1) : [], z.unshift("ignore"), c = b.apply(null, a), z.shift(), c
+        }, Pace.track = function() {
+          var a, b, c;
+          return b = arguments[0], a = 2 <= arguments.length ? W.call(arguments, 1) : [], z.unshift("track"), c = b.apply(null, a), z.shift(), c
+        }, I = function(a) {
+          var b;
+          if (null == a && (a = "GET"), "track" === z[0]) return "force";
+          if (!z.length && C.ajax) {
+            if ("socket" === a && C.ajax.trackWebSockets) return !0;
+            if (b = a.toUpperCase(), Z.call(C.ajax.trackMethods, b) >= 0) return !0
+          }
+          return !1
+        }, j = function(a) {
+          function b() {
+            var a, c = this;
+            b.__super__.constructor.apply(this, arguments), a = function(a) {
+              var b;
+              return b = a.open, a.open = function(d, e) {
+                return I(d) && c.trigger("request", {
+                  type: d,
+                  url: e,
+                  request: a
+                }), b.apply(a, arguments)
+              }
+            }, window.XMLHttpRequest = function(b) {
+              var c;
+              return c = new O(b), a(c), c
+            };
+            try {
+              v(window.XMLHttpRequest, O)
+            } catch (d) {}
+            if (null != N) {
+              window.XDomainRequest = function() {
+                var b;
+                return b = new N, a(b), b
+              };
+              try {
+                v(window.XDomainRequest, N)
+              } catch (d) {}
+            }
+            if (null != M && C.ajax.trackWebSockets) {
+              window.WebSocket = function(a, b) {
+                var d;
+                return d = null != b ? new M(a, b) : new M(a), I("socket") && c.trigger("request", {
+                  type: "socket",
+                  url: a,
+                  protocols: b,
+                  request: d
+                }), d
+              };
+              try {
+                v(window.WebSocket, M)
+              } catch (d) {}
+            }
+          }
+          return Y(b, a), b
+        }(h), Q = null, x = function() {
+          return null == Q && (Q = new j), Q
+        }, H = function(a) {
+          var b, c, d, e;
+          for (e = C.ajax.ignoreURLs, c = 0, d = e.length; d > c; c++)
+            if (b = e[c], "string" == typeof b) {
+              if (-1 !== a.indexOf(b)) return !0
+            } else if (b.test(a)) return !0;
+          return !1
+        }, x().on("request", function(b) {
+          var c, d, e, f, g;
+          return f = b.type, e = b.request, g = b.url, H(g) ? void 0 : Pace.running || C.restartOnRequestAfter === !1 && "force" !== I(f) ? void 0 : (d = arguments, c = C.restartOnRequestAfter || 0, "boolean" == typeof c && (c = 0), setTimeout(function() {
+            var b, c, g, h, i, j;
+            if (b = "socket" === f ? e.readyState < 2 : 0 < (h = e.readyState) && 4 > h) {
+              for (Pace.restart(), i = Pace.sources, j = [], c = 0, g = i.length; g > c; c++) {
+                if (J = i[c], J instanceof a) {
+                  J.watch.apply(J, d);
+                  break
+                }
+                j.push(void 0)
+              }
+              return j
+            }
+          }, c))
+        }), a = function() {
+          function a() {
+            var a = this;
+            this.elements = [], x().on("request", function() {
+              return a.watch.apply(a, arguments)
+            })
+          }
+          return a.prototype.watch = function(a) {
+            var b, c, d, e;
+            return d = a.type, b = a.request, e = a.url, H(e) ? void 0 : (c = "socket" === d ? new m(b) : new n(b), this.elements.push(c))
+          }, a
+        }(), n = function() {
+          function a(a) {
+            var b, c, d, e, f, g, h = this;
+            if (this.progress = 0, null != window.ProgressEvent)
+              for (c = null, a.addEventListener("progress", function(a) {
+                return h.progress = a.lengthComputable ? 100 * a.loaded / a.total : h.progress + (100 - h.progress) / 2
+              }, !1), g = ["load", "abort", "timeout", "error"], d = 0, e = g.length; e > d; d++) b = g[d], a.addEventListener(b, function() {
+                return h.progress = 100
+              }, !1);
+            else f = a.onreadystatechange, a.onreadystatechange = function() {
+              var b;
+              return 0 === (b = a.readyState) || 4 === b ? h.progress = 100 : 3 === a.readyState && (h.progress = 50), "function" == typeof f ? f.apply(null, arguments) : void 0
+            }
+          }
+          return a
+        }(), m = function() {
+          function a(a) {
+            var b, c, d, e, f = this;
+            for (this.progress = 0, e = ["error", "open"], c = 0, d = e.length; d > c; c++) b = e[c], a.addEventListener(b, function() {
+              return f.progress = 100
+            }, !1)
+          }
+          return a
+        }(), d = function() {
+          function a(a) {
+            var b, c, d, f;
+            for (null == a && (a = {}), this.elements = [], null == a.selectors && (a.selectors = []), f = a.selectors, c = 0, d = f.length; d > c; c++) b = f[c], this.elements.push(new e(b))
+          }
+          return a
+        }(), e = function() {
+          function a(a) {
+            this.selector = a, this.progress = 0, this.check()
+          }
+          return a.prototype.check = function() {
+            var a = this;
+            return document.querySelector(this.selector) ? this.done() : setTimeout(function() {
+              return a.check()
+            }, C.elements.checkInterval)
+          }, a.prototype.done = function() {
+            return this.progress = 100
+          }, a
+        }(), c = function() {
+          function a() {
+            var a, b, c = this;
+            this.progress = null != (b = this.states[document.readyState]) ? b : 100, a = document.onreadystatechange, document.onreadystatechange = function() {
+              return null != c.states[document.readyState] && (c.progress = c.states[document.readyState]), "function" == typeof a ? a.apply(null, arguments) : void 0
+            }
+          }
+          return a.prototype.states = {
+            loading: 0,
+            interactive: 50,
+            complete: 100
+          }, a
+        }(), f = function() {
+          function a() {
+            var a, b, c, d, e, f = this;
+            this.progress = 0, a = 0, e = [], d = 0, c = B(), b = setInterval(function() {
+              var g;
+              return g = B() - c - 50, c = B(), e.push(g), e.length > C.eventLag.sampleCount && e.shift(), a = p(e), ++d >= C.eventLag.minSamples && a < C.eventLag.lagThreshold ? (f.progress = 100, clearInterval(b)) : f.progress = 100 * (3 / (a + 3))
+            }, 50)
+          }
+          return a
+        }(), l = function() {
+          function a(a) {
+            this.source = a, this.last = this.sinceLastUpdate = 0, this.rate = C.initialRate, this.catchup = 0, this.progress = this.lastProgress = 0, null != this.source && (this.progress = E(this.source, "progress"))
+          }
+          return a.prototype.tick = function(a, b) {
+            var c;
+            return null == b && (b = E(this.source, "progress")), b >= 100 && (this.done = !0), b === this.last ? this.sinceLastUpdate += a : (this.sinceLastUpdate && (this.rate = (b - this.last) / this.sinceLastUpdate), this.catchup = (b - this.progress) / C.catchupTime, this.sinceLastUpdate = 0, this.last = b), b > this.progress && (this.progress += this.catchup * a), c = 1 - Math.pow(this.progress / 100, C.easeFactor), this.progress += c * this.rate * a, this.progress = Math.min(this.lastProgress + C.maxProgressPerFrame, this.progress), this.progress = Math.max(0, this.progress), this.progress = Math.min(100, this.progress), this.lastProgress = this.progress, this.progress
+          }, a
+        }(), K = null, G = null, q = null, L = null, o = null, r = null, Pace.running = !1, y = function() {
+          return C.restartOnPushState ? Pace.restart() : void 0
+        }, null != window.history.pushState && (S = window.history.pushState, window.history.pushState = function() {
+          return y(), S.apply(window.history, arguments)
+        }), null != window.history.replaceState && (V = window.history.replaceState, window.history.replaceState = function() {
+          return y(), V.apply(window.history, arguments)
+        }), k = {
+          ajax: a,
+          elements: d,
+          document: c,
+          eventLag: f
+        }, (A = function() {
+          var a, c, d, e, f, g, h, i;
+          for (Pace.sources = K = [], g = ["ajax", "elements", "document", "eventLag"], c = 0, e = g.length; e > c; c++) a = g[c], C[a] !== !1 && K.push(new k[a](C[a]));
+          for (i = null != (h = C.extraSources) ? h : [], d = 0, f = i.length; f > d; d++) J = i[d], K.push(new J(C));
+          return Pace.bar = q = new b, G = [], L = new l
+        })(), Pace.stop = function() {
+          return Pace.trigger("stop"), Pace.running = !1, q.destroy(), r = !0, null != o && ("function" == typeof s && s(o), o = null), A()
+        }, Pace.restart = function() {
+          return Pace.trigger("restart"), Pace.stop(), Pace.start()
+        }, Pace.go = function() {
+          var a;
+          return Pace.running = !0, q.render(), a = B(), r = !1, o = F(function(b, c) {
+            var d, e, f, g, h, i, j, k, m, n, o, p, s, t, u, v;
+            for (k = 100 - q.progress, e = o = 0, f = !0, i = p = 0, t = K.length; t > p; i = ++p)
+              for (J = K[i], n = null != G[i] ? G[i] : G[i] = [], h = null != (v = J.elements) ? v : [J], j = s = 0, u = h.length; u > s; j = ++s) g = h[j], m = null != n[j] ? n[j] : n[j] = new l(g), f &= m.done, m.done || (e++, o += m.tick(b));
+            return d = o / e, q.update(L.tick(b, d)), q.done() || f || r ? (q.update(100), Pace.trigger("done"), setTimeout(function() {
+              return q.finish(), Pace.running = !1, Pace.trigger("hide")
+            }, Math.max(C.ghostTime, Math.max(C.minTime - (B() - a), 0)))) : c()
+          })
+        }, Pace.start = function(a) {
+          u(C, a), Pace.running = !0;
+          try {
+            q.render()
+          } catch (b) {
+            i = b
+          }
+          return document.querySelector(".pace") ? (Pace.trigger("start"), Pace.go()) : setTimeout(Pace.start, 50)
+        }, "function" == typeof define && define.amd ? define(function() {
+          return Pace
+        }) : "object" == typeof exports ? module.exports = Pace : C.startOnPageLoad && Pace.start()
+      }).call(this);</script><script>// touchSupport
+      touchSupport = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+      if (!touchSupport) {
+        document.documentElement.className += " no-touch";
+      } else {
+        document.documentElement.className += " touch";
+      }
+       // IE version
+      var uA = window.navigator.userAgent;
+      var msie = uA.indexOf('MSIE ');
+      var trident = uA.indexOf('Trident/');
+      var ie;
+      function deie() {
+        if (msie > 0) {
+          // IE 10 or older => return version number
+          ie = 'ie' + parseInt(uA.substring(msie + 5, uA.indexOf('.', msie)), 10);
+          return ie;
+        }
+        if (trident > 0) {
+          // IE 11 (or newer) => return version number
+          var rv = uA.indexOf('rv:');
+          ie = 'ie' + parseInt(uA.substring(rv + 3, uA.indexOf('.', rv)), 10);
+          return ie;
+        }
+        return ie = 'nonIE';
+      }
+      deie();
+      if (ie === 'nonIE') {
+        document.documentElement.className += (' ' + ie);
+      } else {
+        document.documentElement.className += (' ' + (ie + ' ' + 'IE'));
+      };</script><link rel=stylesheet href=main.css><body><div class=nav-wrapper><header class=header><div class=header-middle><div class=container><div class=row><div class="col-xs-6 col-sm-2 col-md-3 col-lg-2"><div class=logo><a href=index.html><img class=img-responsive src=images/logo.png alt=logo> </a></div></div><div class="col-xs-6 col-sm-10 col-md-9 col-lg-10"><nav class="navbar navbar-default" role=navigation><div class=container><div class="collapse navbar-collapse" id=bs-example-navbar-collapse-1><ul class="nav navbar-nav"><li><a href=customers.html>Kundexempel</a></li><li><a href=about.html>Om Pixelant</a></li><li><a href=web-solutions.html>Webblösningar</a></li><li><a href=trenings.html>Utbildningar</a></li></ul></div></div></nav><div class="login-block hidden-xs hidden-sm small-button orange-button"><a href="http://www.pixelant.se/" class="btn btn-default"><span>REDAN KUND</span></a></div><div class=navbar-header><button type=button class=navbar-toggle data-toggle=collapse data-target=#bs-example-navbar-collapse-1><span class=sr-only>Toggle navigation</span> <span class="icons icon-menu"></span></button></div><div class=search-language-block><div class="dropdown language"><span class="icons icon-earth dropdown-toggle" type=button id=drop-down-language-menu data-toggle=dropdown></span><ul class=dropdown-menu role=menu aria-labelledby=drop-down-language-menu><div class=dropdown-header>Välj språk</div><li role=presentation><a role=menuitem tabindex=-1 href=#>sv</a></li><li role=presentation><a role=menuitem tabindex=-1 href=#>eng</a></li><li role=presentation><a role=menuitem tabindex=-1 href=#>dk</a></li></ul></div><div class="dropdown search"><span class="icons icon-search dropdown-toggle" type=button id=drop-down-search data-toggle=dropdown></span><div class=dropdown-menu role=menu aria-labelledby=drop-down-search><form class="navbar-form navbar-right search" role=search action=search.html><span class="icons icon-t3-search"></span><div class=form-group id=the-basics><input type=search class="form-control typeahead quicksearch" placeholder=Sök...> <button type=submit style=display:none></button></div></form></div></div></div></div></div></div></div></header></div><div class=super-parallax><div class=intro-btn><a href=# class="btn btn-skip-anim">Skip animation</a> <a href=http://www.pixelant.se class="btn btn-more-detail">REDAN KUND</a></div><a href="" class="btn btn-rm-cookie">Repeat animation</a><div class=special-text-wrapper><div class=special-text-line-top></div><h2 class=special-text>FROM PIXELANT TO PERFECTION</h2><div class=special-text-line-bottom></div></div><div class=black-back></div><div class=texture-par></div><div class=start-header><h1>webbblösningar utan begränsningar</h1><h3>Design och utveckling av flexibla enterpriselösningar</h3></div></div><div class=arrow-next-slide><div class="next-slide-button transparent-arrow"><div class=arrow-button><span class="icons icon-arrow-down"></span></div></div></div><div class=flexibility><div class=container><div class=row><div class="col-md-8 special-headers"><h1>Webblösningar</h1><h2>utan begränsningar</h2><p>Lorem ipsum dolor sit amet, consectetur adi pisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Amet tempor incididunt ut</p><p>Lorem ipsum dolor sit amet, consectetur adi pisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Amet tempor incididunt ut. Ut enim ad minim veniam, quis nostrud exercitation. Amet tempor incididunt ut.</p><p><a href=#start class="btn btn-default btn-new"><i>att komma igång</i></a></p></div><div class="col-md-4 arrow-right-list"><h2>VI LEVERERAR</h2><ul><li>Utveckling</li><li>Koncept & Design</li><li>Mobil responsivitet</li><li>Sökmotoroptimering</li><li>Konsultation</li><li>Hosting</li><li>Support & Underhåll</li></ul></div></div></div></div><div class=next-slide-button><div class=arrow-button><span class="icons icon-arrow-down"></span></div></div><div class=parallax-wrapper><div class=parallax style="background-image: url(../images/mountains_second.jpg)"><div class=background><div class=container><div class=row><div class=col-xs-12><h1>profilmatchning</h1><h3>Välj din profil nedan för riktad information om vårt erbjudande för just era behov.</h3></div></div></div></div></div></div><div class=list-container-on-parallax><div class=container><div class=row><div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 list-items-on-parallax"><div class=row><div class="col-xs-3 col-md-3"><h3>Marketing</h3><div class=icon-content><a href=#marketing></a><div class=circle><span class="icons icon-marketing"></span></div></div></div><div class="col-xs-3 col-md-3"><h3>IT</h3><div class=icon-content><a href=#server></a><div class=circle><span class="icons icon-server"></span></div></div></div><div class="col-xs-3 col-md-3"><h3>Redaktör</h3><div class=icon-content><a href=#publisher></a><div class=circle><span class="icons icon-publisher"></span></div></div></div><div class="col-xs-3 col-md-3"><h3>Reklambyrå</h3><div class=icon-content><a href=#agency></a><div class=circle><span class="icons icon-agency"></span></div></div></div></div></div></div></div></div><div class="propositions crossed"><div class=container><div class=row><div class="col-xs-12 col-md-8 col-md-offset-2 line"><h3>Redaktör</h3><p class=text-center>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div></div></div></div><div class=propositions><div class=container><div class=row><div class="col-md-12 text-center"><div id=propositions-carousel class="carousel slide" data-interval=0><div class=carousel-inner><div class="item active"><div class=row><div class="col-md-4 middle-button fader"><div class="rich-text-block middle-size text-center"><div class="icon-content light"><a href=#typo3></a><div class=circle><span class="icons icon-typo3"></span></div></div><h3>stabilitet &amp; Säkerhet</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p><a href=#stabilitet type=button class="btn btn-default"><span>Mer om typo3</span></a></div></div><div class="col-md-4 middle-button fader"><div class="rich-text-block middle-size"><div class="icon-content light"><a href=#lock></a><div class=circle><span class="icons icon-lock"></span></div></div><h3>stabilitet &amp; Säkerhet</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p><a href=#stabilitet type=button class="btn btn-default"><span>mer om säkerhet</span></a></div></div><div class="col-md-4 middle-button fader"><div class="rich-text-block middle-size"><div class="icon-content light"><a href=#hand></a><div class=circle><span class="icons icon-hand"></span></div></div><h3>intuitivt gränssnitt</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p><a href=#stabilitet type=button class="btn btn-default"><span>mer om gränssnittet</span></a></div></div></div></div><div class=item><div class=row><div class="col-md-4 middle-button fader"><div class="rich-text-block middle-size"><div class="icon-content light"><a href=#publisher></a><div class=circle><span class="icons icon-publisher"></span></div></div><h3>stabilitet &amp; Säkerhet</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p><a href=#stabilitet type=button class="btn btn-default"><span>mer om säkerhet</span></a></div></div></div></div></div><a class="left carousel-control hidden-xs hidden-sm hidden-md" href=#propositions-carousel data-slide=prev><span class="icons icon-t3-slider-arrow-left"></span></a> <a class="right carousel-control hidden-xs hidden-sm hidden-md" href=#propositions-carousel data-slide=next><span class="icons icon-t3-slider-arrow-right"></span></a></div></div></div></div></div><div class=next-slide-button><div class=arrow-button><span class="icons icon-arrow-down"></span></div></div><div class="portfolio-isotope portfolio-background"><div class=container-fluid><div class=row><div class=col-md-12><div class=container><div class=row><div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1"><h1>Vad har vi gjort för andra?</h1><h3>Ett axplock av vad vi hjälp våra kunder med under åren.</h3></div></div></div><div class=row><div class=col-md-12><div class=tx-pxa-isotope><section id=options class=options><div class=option-combo><div id=filter class="filter option-set" data-option-key=filter><a href=#show-all class="selected btn" data-option-value=*><span class="icons icon-menu"></span> Alla projekt</a> <a href=#web-design class=btn data-option-value=.web-design><span class=icons></span> webbdesign</a> <a href=#development class=btn data-option-value=.development><span class=icons></span> utveckling</a> <a href=#photo class=btn data-option-value=.photo><span class=icons></span> foto</a> <a href=#seo class=btn data-option-value=.seo><span class=icons></span> seo</a></div></div></section><div class="isotope-container clearfix"><div class=grid-sizer></div><div class=gutter-sizer></div><div class="isotope-item fader web-design development photo"><a href=purus.html><div class=figure><img src=images/fastighets.jpg alt=""><div class=figure-caption><h4>purus</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>webbdesign</li><li>utveckling</li><li>foto</li></ul></div><div class="isotope-item fader seo web-design photo"><a href=#><div class=figure><img src=images/fortiva.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>webbdesign</li><li>foto</li><li>seo</li></ul></div><div class="isotope-item fader seo photo"><a href=#><div class=figure><img src=images/interim-minds.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>seo</li><li>foto</li></ul></div><div class="isotope-item fader web-design seo development"><a href=#><div class=figure><img src=images/visitsweden.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>webbdesign</li><li>seo</li><li>utveckling</li></ul></div><div class="isotope-item fader development"><a href=#><div class=figure><img src=images/sydsvenskan.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>utveckling</li></ul></div><div class="isotope-item fader development photo"><a href=#><div class=figure><img src=images/joblink.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>utveckling</li><li>foto</li></ul></div><div class="isotope-item fader development photo"><a href=#><div class=figure><img src=images/joblink.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>utveckling</li><li>foto</li></ul></div><div class="isotope-item fader development photo"><a href=#><div class=figure><img src=images/joblink.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>utveckling</li><li>foto</li></ul></div><div class="isotope-item fader development photo"><a href=#><div class=figure><img src=images/joblink.jpg alt=""><div class=figure-caption><h4>fastighetsplatsen</h4><span class="icons icon-t3-slider-arrow-right"></span><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim.</p></div></div></a><ul class=category><li>utveckling</li><li>foto</li></ul></div></div></div></div></div></div></div></div></div><div class="next-slide-button transparent-arrow"><div class=arrow-button><span class="icons icon-arrow-down"></span></div></div><div class="stats hidden-xs hidden-sm"><div class=container><div class=row><div class=col-md-12><div class=row><div class="col-md-12 text-center"><h2>vardagstatistik från pixelant</h2><h3>Lite siffror från vår vardag</h3></div></div><div class=row><div class="col-md-2 col-md-offset-5 center-image"><img src=images/ant.png alt=ant></div></div><div class=row><div class="col-md-6 col-lg-3"><section class=chart><ul class=chart-legend><li data-slice-size=10 data-color="">Surfa</li><li data-slice-size=70 data-color="">TV</li><li data-slice-size=20 data-color="">Spel</li></ul><div class=doughnut><div class=doughnut-body></div></div><div class=caption>Kaffe</div></section></div><div class="col-md-6 col-lg-3"><section class=chart><ul class=chart-legend><li data-slice-size=10 data-color="">Surfa</li><li data-slice-size=70 data-color="">TV</li><li data-slice-size=20 data-color="">Spel</li></ul><div class=doughnut><div class=doughnut-body></div></div><div class=caption>Ol eller vin</div></section></div><div class="col-md-6 col-lg-3"><section class=chart><ul class=chart-legend><li data-slice-size=10 data-color="">Surfa</li><li data-slice-size=70 data-color="">TV</li><li data-slice-size=20 data-color="">Spel</li></ul><div class=doughnut><div class=doughnut-body></div></div><div class=caption>PC / MAC</div></section></div><div class="col-md-6 col-lg-3"><section class=chart><ul class=chart-legend><li data-slice-size=10 data-color="">Surfa</li><li data-slice-size=70 data-color="">TV</li><li data-slice-size=20 data-color="">Spel</li></ul><div class=doughnut><div class=doughnut-body></div></div><div class=caption>Ol eller vin</div></section></div></div><div class=row><div class="col-md-6 col-lg-3 offset-left-12-percent"><section class=count data-number=43><h1>0</h1><div class=caption>Koppar om dagen</div></section></div><div class="col-md-6 col-lg-3"><section class=count data-number=18><h1>0</h1><div class=caption>Antal anställda</div></section></div><div class="col-md-12 col-lg-3"><section class=count data-number=126><h1>0</h1><div class=caption>Unika besökare (tusental)</div></section></div></div></div></div></div></div><div class=next-slide-button><div class=arrow-button><span class="icons icon-arrow-down"></span></div></div><div class="employee-header hidden-xs"><div class=container-fluid><div class=row><div class="col-md-10 col-md-offset-1 text-center"><h2>NÅGRA AV OSS PÅ PIXELANT</h2><h3>Våra eminienta medarbetare som skapar perfektion</h3></div></div></div></div><div class="employee-gallery hidden-xs"><div class=container-fluid><div class=row><div class=col-md-12><a id=c733></a><div class=employee-element><div class=dummy></div><div class=element><img src=images/e2.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class="employee-element dark"><div class=dummy></div><div class=element><p>VILL DU VARA MED?</p><img src=images/pixelant.png alt=""></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e3.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp5.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e6.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class="employee-element orange logo"><div class=dummy></div><div class=element><img src=images/p.png alt=""></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e12.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e1.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e15.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e16.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e10.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e6.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e13.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e14.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp1.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp2.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp_jonas.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp3.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp_jozef.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp4.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/emp_max.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e3.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e7.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class="employee-element orange"><div class=dummy></div><div class=element><p>Vi stödjer</p><img src=images/faktum.png alt=""></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e10.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e7.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e12.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e6.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e5.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e4.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e4.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div><div class=employee-element><div class=dummy></div><div class=element><img src=images/e4.jpg alt=""><div class=caption><p>ADRIAN HÖGHULT</p></div></div></div></div></div></div></div><div class=container-fluid><div class="col-md-12 hidden-xs hidden-sm"><div id=social-stream-carousel class="social-stream carousel slide" data-ride=""><div class=carousel-inner><div class="item active"><div class=row><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-facebook.jpg></div><div class=item-caption><div class=item-like><div class=item-social>Facebook</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-twitter.jpg></div><div class=item-caption><div class=item-like><div class=item-social>Twitter</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-linkedIn.jpg></div><div class=item-caption><div class=item-like><div class=item-social>LinkedIn</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-google+.jpg></div><div class=item-caption><div class=item-like><div class=item-social>Google+</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div></div></div><div class=item><div class=row><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-facebook.jpg></div><div class=item-caption><div class=item-like><div class=item-social>Facebook</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-twitter.jpg></div><div class=item-caption><div class=item-like><div class=item-social>Twitter</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-linkedIn.jpg></div><div class=item-caption><div class=item-like><div class=item-social>LinkedIn</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div><div class=col-md-3><div class=social-stream-item><a href=# target=_blank><div class=item-head><img alt="" src=images/soc-google+.jpg></div><div class=item-caption><div class=item-like><div class=item-social>Google+</div><div class=item-like-button><img src=images/gilla.png alt=""></div></div><div class=item-description><div class=title>Pixelant AB</div><div class=date>den 21 maj</div><div class=text>Lorem ipsum dolor sit amet dolor sit amet ipsum lorem...</div></div></div></a></div></div></div></div></div><a class="left carousel-control" href=#social-stream-carousel data-slide=prev><span class="icons icon-t3-slider-arrow-left"></span></a> <a class="right carousel-control" href=#social-stream-carousel data-slide=next><span class="icons icon-t3-slider-arrow-right"></span></a></div></div></div><footer class=footer><div class=footer-top><div class=container><div class=row><div class="col-md-12 text-center"><h1>FROM PIXEL TO PERFECTION</h1><h3>Om Pixelant</h3></div></div></div></div><div class="footer-middle first"><div class=container><div class=row><div class=col-md-4><p>Pixelant är en webbyrå i Malmö som är specialiserade inom webbpublicering och digital informationshantering. Pixelant fokuserar på att leverera helhetslösningar för webbplatser i TYPO3 CMS.</p></div><div class=col-md-4><p>Hos Pixelant Webbyrå i Malmö får du hjälp med alla moment kring ditt webbprojekt och vi har lösningar för företag i alla storleks-klasser.</p></div><div class=col-md-4><p>Vår webbyrå har sina lokaler på Regementsgatan 8 i Malmö och arbetar med kunder i alla segment, både lokalt och internationellt. Vi har även ett supportcenter i Karlskrona.</p></div></div></div></div><div class="footer-middle second"><div class=container><div class=row><div class=col-md-4><h4>Kontakta oss</h4><div class=row><div class="col-md-12 col-lg-6"><p>Pixelant AB<br>Regementsgatan 8<br>211 42 Malmö</p></div><div class="col-md-12 col-lg-6"><ul class="nav contact-links"><li><p><span class="icons icon-t3-mobile"></span> <span></span> <a href="tel:040-617 12 30">040-617 12 30</a></p></li><li><p><span class="icons icon-t3-mail"></span> <span></span> <a href=#>info@info.se</a></p></li></ul></div></div></div><div class=col-md-4><h4>socialisera med oss</h4><div class=social><ul class="nav nav-pills"><li><a href=#><span class="icons icon-t3-facebook"></span></a></li><li><a href=#><span class="icons icon-t3-twitter"></span></a></li><li><a href=#><span class="icons icon-t3-linkedin"></span></a></li><li><a href=#><span class="icons icon-t3-googleplus"></span></a></li><li class="gilla visible-lg-block"><a href=#><img src=images/gilla.png alt=""></a></li></ul></div></div><div class="col-md-4 footer-subscribe"><h4>Få vårt nyhetsbrev</h4><div class=tx-pxa-newsletter-subscription><div class=tx_pxanewslettersubscription><form class=form-inline action=index.html><div class=form-group><input type=email placeholder=E-mail class=form-control name=email required autocomplete=email></div><div class="subscribe-button form-actions"><button type=submit class="btn btn-default"><span>Subscribe</span></button></div><div class="unsubscribe form-actions hidden pull-right"><button type=submit class="btn btn-default"><span>Unsubscribe</span></button></div><div class=read-more><a href=#>Läs tidigare nyhetsbrev »</a></div></form><script type=text/javascript>var jqXHR_error_message = 'Technical problem, please try again later.'</script></div></div></div></div></div></div><div class=footer-bottom><div class=container><div class=row><div class="col-md-5 col-lg-4 footer-bottom-logo-link"><img src=images/logo.png alt=""><p>Alla rättigheter reserverade Pixelant AB © 2014</p><ul class=nav><li><a href=legalRights.html>Användarvillkor</a></li><li><a href=cookies.html>Cookies</a></li></ul></div><div class="col-md-7 col-lg-6 col-lg-offset-2 logos"><img src=images/AA.png alt=""> <img src=images/T3-silver.png alt=""> <img src=images/T3-certified.png alt=""> <img src=images/google-apps.png alt=""></div></div></div></div></footer><script src=main.js></script><script src=local.js></script>
